@@ -1,0 +1,28 @@
+{
+  "name": "react-sliding-button",
+  "version": "1.0.0",
+  "description": "A slideable and dragable react button for Web and Mobile",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shaibrown5/react-sliding-button.git"
+  },
+  "keywords": [
+    "react",
+    "drag button",
+    "swipe button",
+    "slide button",
+    "react drag button",
+    "react swipe button",
+    "react slide button"
+  ],
+  "author": "Shai Brown",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shaibrown5/react-sliding-button/issues"
+  },
+  "homepage": "https://github.com/shaibrown5/react-sliding-button#readme"
+}
