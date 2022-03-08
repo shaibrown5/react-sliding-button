@@ -1,28 +1,47 @@
 {
-  "name": "react-sliding-button",
-  "version": "1.0.0",
-  "description": "A slideable and dragable react button for Web and Mobile",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/shaibrown5/react-sliding-button.git"
-  },
-  "keywords": [
-    "react",
-    "drag button",
-    "swipe button",
-    "slide button",
-    "react drag button",
-    "react swipe button",
-    "react slide button"
-  ],
-  "author": "Shai Brown",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/shaibrown5/react-sliding-button/issues"
-  },
-  "homepage": "https://github.com/shaibrown5/react-sliding-button#readme"
+	"name": "react-sliding-button",
+	"version": "1.0.0",
+	"description": "A slideable and dragable react button for Web and Mobile",
+	"main": "lib/index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"build": "tsc",
+		"lint": "eslint ./src --fix",
+		"format": "prettier --write \"src/**/*.ts\"",
+		"prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/shaibrown5/react-sliding-button.git"
+	},
+	"keywords": [
+		"react",
+		"drag button",
+		"swipe button",
+		"slide button",
+		"react drag button",
+		"react swipe button",
+		"react slide button"
+	],
+	"author": "Shai Brown",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/shaibrown5/react-sliding-button/issues"
+	},
+	"homepage": "https://github.com/shaibrown5/react-sliding-button#readme",
+	"devDependencies": {
+		"@types/jest": "^27.4.1",
+		"@typescript-eslint/eslint-plugin": "^5.14.0",
+		"@typescript-eslint/parser": "^5.14.0",
+		"eslint": "^8.10.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-prettier": "^4.0.0",
+		"jest": "^27.5.1",
+		"prettier": "^2.5.1",
+		"ts-jest": "^27.1.3",
+		"typescript": "^4.6.2"
+	},
+	"files": [
+		"lib/**/*"
+	]
 }
