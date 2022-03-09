@@ -1,0 +1,39 @@
+.slide-button {
+	display: flex;
+	position: relative;
+  background-color: white;
+	user-select: none;
+	-webkit-user-select: none;
+
+	.slide-container {
+		display: flex;
+		height: 30px;
+		width: 170px;
+		flex: 1;
+		position: relative;
+
+		.slider {
+			position: absolute;
+			height: 30px;
+			top: 0;
+			z-index: 100;
+
+			&.left-position {
+				left: 0;
+			}
+			
+			&.right-position {
+				right: 0;
+			}
+		}
+
+		.sliderText {
+			display: none;
+
+			&.show {
+				margin-left: 5px;
+				display: flex;
+			}
+		}
+	}
+}
