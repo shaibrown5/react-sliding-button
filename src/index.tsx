@@ -3,22 +3,22 @@ import './styles.scss';
 
 export interface SlideButtonProps {
 	className?: string;
-	onStartDrag?: () => void;
-	onCancelDrag: () => void;
+	containerClassName?: string;
+	sliderClassName?: string;
+	textClassName?: string;
 	onFinishDrag: () => void;
+	onStartDrag?: () => void;
+	onCancelDrag?: () => void;
 	slideDirection: 'left' | 'right';
 	startClosed: boolean;
 	finishThreshold?: number;
 	text?: string;
 	containerWidth?: number;
 	closedContainerWidth?: number;
-	containerClassName?: string;
-	sliderClassName?: string;
-	textClassName?: string;
 }
 
 const DEFAULT_CONTAINER_WIDTH = 170;
-const IS_TOUCH_DEVICE = 'ontouchstart' in (window || document.documentElement);
+// const IS_TOUCH_DEVICE = 'ontouchstart' in (window || document.documentElement);
 
 const SlideButton: React.FC<SlideButtonProps> = props => {
 	const { slideDirection } = props;
@@ -72,34 +72,45 @@ const SlideButton: React.FC<SlideButtonProps> = props => {
 		}
 	}, [startX, currX]);
 
-	const onDrag = (e: React.TouchEvent<HTMLDivElement> | React.MouseEvent<HTMLDivElement>) => {
-		if (e instanceof TouchEvent && IS_TOUCH_DEVICE) {
-			setCurrX(e.touches[0].clientX);
-		} else if (e instanceof MouseEvent) {
-			setCurrX(e.clientX);
-		}
+	const onDragTouch = (e: React.TouchEvent<HTMLDivElement>) => {
+		setCurrX(e.touches[0].clientX);
+	};
+
+	const onDragMouse = (e: React.MouseEvent<HTMLDivElement>) => {
+		setCurrX(e.clientX);
 	};
 
 	const reset = () => {
 		if (props.startClosed) {
 			updateContainerStyle(props.closedContainerWidth || 35);
 		}
+
 		updateSliderStyle(0);
 	};
 
-	const startDrag = (e: React.TouchEvent<HTMLDivElement> | React.MouseEvent<HTMLDivElement>) => {
+	const upadateStartPositions = () => {
 		setSliderPos(0);
 		updateContainerStyle(containerWidth);
 		updateSliderStyle(0);
 		setIsDragging(true);
+	};
 
-		if (e instanceof TouchEvent && IS_TOUCH_DEVICE) {
-			setStartX(e.touches[0].clientX);
-			setCurrX(e.touches[0].clientX);
-		} else if (e instanceof MouseEvent) {
-			setStartX(e.clientX);
-			setCurrX(e.clientX);
+	const startDragMouse = (e: React.MouseEvent<HTMLDivElement>) => {
+		upadateStartPositions();
+
+		setStartX(e.clientX);
+		setCurrX(e.clientX);
+
+		if (props.onStartDrag) {
+			props.onStartDrag();
 		}
+	};
+
+	const startDragTouch = (e: React.TouchEvent<HTMLDivElement>) => {
+		upadateStartPositions();
+
+		setStartX(e.touches[0].clientX);
+		setCurrX(e.touches[0].clientX);
 
 		if (props.onStartDrag) {
 			props.onStartDrag();
@@ -113,7 +124,7 @@ const SlideButton: React.FC<SlideButtonProps> = props => {
 
 			if (sliderPos >= containerWidth * (props.finishThreshold || 1)) {
 				props.onFinishDrag();
-			} else {
+			} else if (props.onCancelDrag) {
 				props.onCancelDrag();
 			}
 		}
@@ -125,13 +136,13 @@ const SlideButton: React.FC<SlideButtonProps> = props => {
 				<div
 					className={sliderCls}
 					ref={slider}
-					onTouchStart={startDrag}
+					onTouchStart={startDragTouch}
 					onTouchEnd={stopDrag}
-					onTouchMove={onDrag}
-					onMouseDown={startDrag}
-					onMouseMove={onDrag}
+					onTouchMove={onDragTouch}
+					onMouseDown={startDragMouse}
+					onMouseMove={onDragMouse}
 					onMouseUp={stopDrag}>
-					{props.children}
+					{props.children || <div className='slider-circle'></div>}
 				</div>
 				<div className={textSliderCls}>{props.text || ''}</div>
 			</div>

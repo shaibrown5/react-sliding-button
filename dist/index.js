@@ -35,10 +35,10 @@ function _interopNamespace(e) {
 
 var React__namespace = /*#__PURE__*/_interopNamespace(React);
 
-___$insertStyle(".slide-button {\n  display: flex;\n  position: relative;\n  user-select: none;\n  -webkit-user-select: none;\n}\n.slide-button .slide-container {\n  display: flex;\n  height: 30px;\n  width: 170px;\n  flex: 1;\n  position: relative;\n}\n.slide-button .slide-container .slider {\n  position: absolute;\n  height: 30px;\n  top: 0;\n  z-index: 100;\n}\n.slide-button .slide-container .slider.left-position {\n  left: 0;\n}\n.slide-button .slide-container .slider.right-position {\n  right: 0;\n}\n.slide-button .slide-container .sliderText {\n  display: none;\n}\n.slide-button .slide-container .sliderText.show {\n  margin-left: 5px;\n  display: flex;\n}");
+___$insertStyle(".slide-button {\n  display: flex;\n  position: relative;\n  background-color: white;\n  user-select: none;\n  -webkit-user-select: none;\n}\n.slide-button .slide-container {\n  display: flex;\n  height: 30px;\n  width: 170px;\n  flex: 1;\n  position: relative;\n}\n.slide-button .slide-container .slider {\n  position: absolute;\n  height: 30px;\n  top: 0;\n  z-index: 100;\n}\n.slide-button .slide-container .slider.left-position {\n  left: 0;\n}\n.slide-button .slide-container .slider.right-position {\n  right: 0;\n}\n.slide-button .slide-container .slider .slider-circle {\n  height: 30px;\n  width: 30px;\n  background-color: green;\n  border-radius: 50%;\n  cursor: pointer;\n}\n.slide-button .slide-container .sliderText {\n  display: none;\n}\n.slide-button .slide-container .sliderText.show {\n  margin-left: 5px;\n  display: flex;\n}");
 
 var DEFAULT_CONTAINER_WIDTH = 170;
-var IS_TOUCH_DEVICE = 'ontouchstart' in (window || document.documentElement);
+// const IS_TOUCH_DEVICE = 'ontouchstart' in (window || document.documentElement);
 var SlideButton = function (props) {
     var slideDirection = props.slideDirection;
     var containerWidth = props.containerWidth || DEFAULT_CONTAINER_WIDTH;
@@ -48,8 +48,8 @@ var SlideButton = function (props) {
     var _d = React__namespace.useState(0), currX = _d[0], setCurrX = _d[1];
     var slider = React__namespace.createRef();
     var container = React__namespace.createRef();
-    var cls = "slide-button ".concat(props.className && props.className);
-    var containerCls = "slide-container ".concat(props.containerClassName && props.containerClassName);
+    var cls = "slide-button ".concat(props.className ? props.className : '');
+    var containerCls = "slide-container ".concat(props.containerClassName ? props.containerClassName : '');
     var sliderCls = "slider ".concat(slideDirection === 'right' ? 'left-position' : 'right-position');
     var textSliderCls = "slider-text ".concat(isDragging || !props.startClosed ? 'show' : '', " ").concat(props.textClassName ? props.textClassName : '');
     var updateSliderStyle = function (value) {
@@ -84,13 +84,13 @@ var SlideButton = function (props) {
             updateSliderStyle(currentPosition);
         }
     }, [startX, currX]);
-    var onDrag = function (e) {
-        if (e instanceof TouchEvent && IS_TOUCH_DEVICE) {
-            setCurrX(e.touches[0].clientX);
-        }
-        else if (e instanceof MouseEvent) {
-            setCurrX(e.clientX);
-        }
+    var onDragTouch = function (e) {
+        console.log('ondrag touch', "".concat(e.touches[0].clientX));
+        setCurrX(e.touches[0].clientX);
+    };
+    var onDragMouse = function (e) {
+        console.log('on drag mouse', "".concat(e.clientX));
+        setCurrX(e.clientX);
     };
     var reset = function () {
         if (props.startClosed) {
@@ -98,19 +98,26 @@ var SlideButton = function (props) {
         }
         updateSliderStyle(0);
     };
-    var startDrag = function (e) {
+    var upadateStartPositions = function () {
         setSliderPos(0);
         updateContainerStyle(containerWidth);
         updateSliderStyle(0);
         setIsDragging(true);
-        if (e instanceof TouchEvent && IS_TOUCH_DEVICE) {
-            setStartX(e.touches[0].clientX);
-            setCurrX(e.touches[0].clientX);
+    };
+    var startDragMouse = function (e) {
+        console.log('start mouse', e.clientX);
+        upadateStartPositions();
+        setStartX(e.clientX);
+        setCurrX(e.clientX);
+        if (props.onStartDrag) {
+            props.onStartDrag();
         }
-        else if (e instanceof MouseEvent) {
-            setStartX(e.clientX);
-            setCurrX(e.clientX);
-        }
+    };
+    var startDragTouch = function (e) {
+        console.log('start touch', e.touches[0].clientX);
+        upadateStartPositions();
+        setStartX(e.touches[0].clientX);
+        setCurrX(e.touches[0].clientX);
         if (props.onStartDrag) {
             props.onStartDrag();
         }
@@ -122,14 +129,14 @@ var SlideButton = function (props) {
             if (sliderPos >= containerWidth * (props.finishThreshold || 1)) {
                 props.onFinishDrag();
             }
-            else {
+            else if (props.onCancelDrag) {
                 props.onCancelDrag();
             }
         }
     };
     return (React__namespace.createElement("div", { className: cls },
         React__namespace.createElement("div", { className: containerCls, ref: container },
-            React__namespace.createElement("div", { className: sliderCls, ref: slider, onTouchStart: startDrag, onTouchEnd: stopDrag, onTouchMove: onDrag, onMouseDown: startDrag, onMouseMove: onDrag, onMouseUp: stopDrag }, props.children),
+            React__namespace.createElement("div", { className: sliderCls, ref: slider, onTouchStart: startDragTouch, onTouchEnd: stopDrag, onTouchMove: onDragTouch, onMouseDown: startDragMouse, onMouseMove: onDragMouse, onMouseUp: stopDrag }, props.children || React__namespace.createElement("div", { className: 'slider-circle' })),
             React__namespace.createElement("div", { className: textSliderCls }, props.text || ''))));
 };
 

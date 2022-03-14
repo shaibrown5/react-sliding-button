@@ -1,7 +1,7 @@
 .slide-button {
 	display: flex;
 	position: relative;
-  background-color: white;
+	background-color: white;
 	user-select: none;
 	-webkit-user-select: none;
 
@@ -21,14 +21,23 @@
 			&.left-position {
 				left: 0;
 			}
-			
+
 			&.right-position {
 				right: 0;
+			}
+
+			.slider-circle {
+        height: 30px;
+				width: 30px;
+				background-color: green;
+				border-radius: 50%;
+        cursor: pointer;
 			}
 		}
 
 		.sliderText {
 			display: none;
+      color: black;
 
 			&.show {
 				margin-left: 5px;
