@@ -35,7 +35,7 @@ function _interopNamespace(e) {
 
 var React__namespace = /*#__PURE__*/_interopNamespace(React);
 
-___$insertStyle(".slide-button {\n  display: flex;\n  position: relative;\n  background-color: white;\n  user-select: none;\n  -webkit-user-select: none;\n}\n.slide-button .slide-container {\n  display: flex;\n  height: 30px;\n  width: 170px;\n  flex: 1;\n  position: relative;\n}\n.slide-button .slide-container .slider {\n  position: absolute;\n  height: 30px;\n  top: 0;\n  z-index: 100;\n}\n.slide-button .slide-container .slider.left-position {\n  left: 0;\n}\n.slide-button .slide-container .slider.right-position {\n  right: 0;\n}\n.slide-button .slide-container .slider .slider-circle {\n  height: 30px;\n  width: 30px;\n  background-color: green;\n  border-radius: 50%;\n  cursor: pointer;\n}\n.slide-button .slide-container .sliderText {\n  display: none;\n}\n.slide-button .slide-container .sliderText.show {\n  margin-left: 5px;\n  display: flex;\n}");
+___$insertStyle(".slide-button {\n  display: flex;\n  position: relative;\n  background-color: white;\n  user-select: none;\n  -webkit-user-select: none;\n}\n.slide-button .slide-container {\n  display: flex;\n  height: 30px;\n  width: 170px;\n  flex: 1;\n  position: relative;\n  justify-content: center;\n}\n.slide-button .slide-container .slider {\n  position: absolute;\n  height: 30px;\n  top: 0;\n  z-index: 100;\n}\n.slide-button .slide-container .slider.left-position {\n  left: 0;\n}\n.slide-button .slide-container .slider.right-position {\n  right: 0;\n}\n.slide-button .slide-container .slider .slider-circle {\n  height: 30px;\n  width: 30px;\n  background-color: green;\n  border-radius: 50%;\n  cursor: pointer;\n}\n.slide-button .slide-container .slider-text {\n  display: none;\n  color: black;\n}\n.slide-button .slide-container .slider-text.show {\n  margin-left: 5px;\n  display: flex;\n}");
 
 var DEFAULT_CONTAINER_WIDTH = 170;
 // const IS_TOUCH_DEVICE = 'ontouchstart' in (window || document.documentElement);
@@ -85,11 +85,9 @@ var SlideButton = function (props) {
         }
     }, [startX, currX]);
     var onDragTouch = function (e) {
-        console.log('ondrag touch', "".concat(e.touches[0].clientX));
         setCurrX(e.touches[0].clientX);
     };
     var onDragMouse = function (e) {
-        console.log('on drag mouse', "".concat(e.clientX));
         setCurrX(e.clientX);
     };
     var reset = function () {
@@ -105,7 +103,6 @@ var SlideButton = function (props) {
         setIsDragging(true);
     };
     var startDragMouse = function (e) {
-        console.log('start mouse', e.clientX);
         upadateStartPositions();
         setStartX(e.clientX);
         setCurrX(e.clientX);
@@ -114,7 +111,6 @@ var SlideButton = function (props) {
         }
     };
     var startDragTouch = function (e) {
-        console.log('start touch', e.touches[0].clientX);
         upadateStartPositions();
         setStartX(e.touches[0].clientX);
         setCurrX(e.touches[0].clientX);

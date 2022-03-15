@@ -18,7 +18,6 @@ export interface SlideButtonProps {
 }
 
 const DEFAULT_CONTAINER_WIDTH = 170;
-// const IS_TOUCH_DEVICE = 'ontouchstart' in (window || document.documentElement);
 
 const SlideButton: React.FC<SlideButtonProps> = props => {
 	const { slideDirection } = props;
