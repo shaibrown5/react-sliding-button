@@ -38,11 +38,11 @@ function App() {
 | containerClassName   | string            | The class name of the container                                                                   |          |                   |               |
 | sliderClassName      | string            | The class name of the slider component                                                            |          |                   |               |
 | textClassName        | string            | The class name of the text component                                                              |          |                   |               |
-| onFinishDrag         | () => void        | Callback function when drag is finished, meaning it passed the finishThreshold                    | yes      |                   |               |
+| onFinishDrag         | () => void        | Callback function when drag is finished, meaning it passed the finishThreshold                    | ✅      |                   |               |
 | onStartDrag          | () => void        | Callback function when drag started                                                               |          |                   |               |
 | onCancelDrag         | () => void        | Callback function for when drag is not finished                                                   |          |                   |               |
-| slideDirection       | 'left' \| 'right' | Direction of the slide                                                                            | yes      | 'left', 'right'   |               |
-| startClosed          | boolean           | Determines weather the component starts closed and opens when drag starts or starts open          | yes      | true, false       |               |
+| slideDirection       | 'left' \| 'right' | Direction of the slide                                                                            | ✅      | 'left', 'right'   |               |
+| startClosed          | boolean           | Determines weather the component starts closed and opens when drag starts or starts open          | ✅      | true, false       |               |
 | finishThreshold      | number            | Threshold to pass in order to trigger onFinishDrag(), relative to the width of the open container |          | 0.85, 0.9         | 1             |
 | text                 | string            | Text to display on the slider                                                                     |          | 'slide to cancel' |               |
 | containerWidth       | number            | Width of the open container                                                                       |          |                   | 170           |
