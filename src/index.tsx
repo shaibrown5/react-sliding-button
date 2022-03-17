@@ -72,11 +72,13 @@ const SlideButton: React.FC<SlideButtonProps> = props => {
 	}, [startX, currX]);
 
 	const onDragTouch = (e: React.TouchEvent<HTMLDivElement>) => {
-		setCurrX(e.touches[0].clientX);
+		setCurrX(e?.touches[0]?.clientX || startX);
 	};
 
 	const onDragMouse = (e: React.MouseEvent<HTMLDivElement>) => {
-		setCurrX(e.clientX);
+		if (isDragging) {
+			setCurrX(e.clientX);
+		}
 	};
 
 	const reset = () => {
